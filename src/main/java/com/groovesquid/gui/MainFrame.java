@@ -45,6 +45,7 @@ public class MainFrame extends JFrame {
     protected JButton downloadButton;
     protected JMenuItem downloadMenuItem;
     protected JPanel downloadPanel;
+    protected JPanel queuePanel;
     protected JScrollPane downloadScrollPane;
     protected JTable downloadTable;
     protected JPopupMenu downloadTablePopupMenu;
@@ -746,10 +747,14 @@ public class MainFrame extends JFrame {
         downloadPanel = new JPanel();
         downloadPanel.setOpaque(false);
 
+        queuePanel = new JPanel();
+        queuePanel.setOpaque(false);
+
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab(I18n.getLocaleString("HOME"), null, homePanel, null);
         tabbedPane.addTab(I18n.getLocaleString("SEARCH"), null, searchPanel, null);
         tabbedPane.addTab(I18n.getLocaleString("DOWNLOADS"), null, downloadPanel, null);
+        tabbedPane.addTab(I18n.getLocaleString("Queue Playlist"), null, queuePanel, null);
 
         removeFromDiskButton = new JButton(I18n.getLocaleString("REMOVE_FROM_DISK"));
         removeFromDiskButton.setFont(new Font(removeFromDiskButton.getFont().getName(), Font.PLAIN, 11));
@@ -1096,10 +1101,12 @@ public class MainFrame extends JFrame {
     private final PlaybackListener playbackListener = new PlaybackListener() {
         public void playbackStarted(Track track) {
             playPauseButton.setIcon(style.getPauseIcon());
+            playPauseButton.setToolTipText("Pause");
         }
 
         public void playbackPaused(Track track, int audioPosition) {
             playPauseButton.setIcon(style.getPlayIcon());
+            playPauseButton.setToolTipText("Play");
         }
 
         public void playbackFinished(Track track, int audioPosition) {
